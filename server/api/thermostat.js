@@ -5,7 +5,7 @@ module.exports = router
 router.post('/temperature', async (req, res, next) => {
   try {
       const {temperature} = req.body
-      const newTemp = Temperature.create({temperature})
+      const newTemp = await Temperature.create({temperature})
       res.json(204)
   } catch (err) {
     next(err)
@@ -14,7 +14,7 @@ router.post('/temperature', async (req, res, next) => {
 
 router.get('/config/:id', async (req, res, next) => {
   try {
-    const thermostatConfig = Config.findOne(req.params.id)
+    const thermostatConfig = await Config.findOne(req.params.id)
     res.json(thermostatConfig)
   }catch (err) {
     next(err)
