@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Temperature = db.define('temperature', {
+const ThermostatConfig = db.define('temperature', {
   temperature: {
     type: Sequelize.STRING
   },
@@ -22,4 +22,4 @@ const Temperature = db.define('temperature', {
   }
 })
 
-module.exports = Temperature
+module.exports = ThermostatConfig
