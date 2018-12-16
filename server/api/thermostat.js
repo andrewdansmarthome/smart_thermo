@@ -9,7 +9,7 @@ router.post('/temperature', async (req, res, next) => {
 
       //temperature
   } catch (err) {
-    next(err),
+    next(err)
   }
 })
 
