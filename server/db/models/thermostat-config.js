@@ -1,24 +1,24 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const ThermostatConfig = db.define('temperature', {
-  temperature: {
-    type: Sequelize.STRING
-  },
-  serializedValue: {
-    type: Sequelize.INTEGER
-  },
-  time: {
-    type: Sequelize.DATE,
-    unique: true,
-    allowNull: false
-  },
-  targetTemperature: {
-    type: Sequelize.INTEGER
-  },
-  locationId: {
+const ThermostatConfig = db.define('thermostatConfig', {
+  id: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    unique: true
+  },
+  transmitDelay: {
+    type: Sequelize.INTEGER,
+  },
+  targetTemp: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  nextScheduledTime: {
+    type: Sequelize.INTEGER,
+  },
+  nextScheduledTemp: {
+    type: Sequelize.INTEGER,
   }
 })
 
