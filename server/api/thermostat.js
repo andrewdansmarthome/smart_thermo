@@ -6,6 +6,7 @@ router.post('/temperature', async (req, res, next) => {
   try {
       const {temperature} = req.body
       const newTemp = await Temperature.create({temperature})
+      console.log('Temp server was hit!')
       res.json(204)
   } catch (err) {
     next(err)
