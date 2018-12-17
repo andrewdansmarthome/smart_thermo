@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const ThermostatConfig = db.define('thermostatConfig', {
-  id: {
+  chipId: {
     type: Sequelize.INTEGER,
     allowNull: false,
     unique: true
