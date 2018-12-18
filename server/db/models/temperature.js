@@ -3,21 +3,23 @@ const db = require('../db')
 
 const Temperature = db.define('temperature', {
   temperature: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   serializedValue: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   time: {
     type: Sequelize.INTEGER,
-    // allowNull: false
+    allowNull: false
   },
   targetTemperature: {
     type: Sequelize.INTEGER
   },
   locationId: {
     type: Sequelize.INTEGER,
-    // allowNull: false
+    allowNull: false
   }
 })
 
