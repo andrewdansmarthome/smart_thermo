@@ -4,10 +4,10 @@ module.exports = router
 
 router.post('/temperature', async (req, res, next) => {
   try {
-      const data = req.body
-      console.log('Temp server was hit!', data)
-      await Temperature.create(data)
-      res.json(204)
+    const data = req.body
+    console.log('Temp server was hit!', data)
+    await Temperature.create(data)
+    res.json(204)
   } catch (err) {
     next(err)
   }
@@ -15,6 +15,7 @@ router.post('/temperature', async (req, res, next) => {
 
 router.get('/config/:id', async (req, res, next) => {
   try {
+    console.log('Config route was hit!')
     const thermostatConfig = await Config.findOne(req.params.id)
     res.json(thermostatConfig)
   }catch (err) {
@@ -24,10 +25,9 @@ router.get('/config/:id', async (req, res, next) => {
 
 router.get('/schedule', async (req, res, next) => {
   try {
-    const data = req.body
-    console.log('Schedule route was hit!', data)
-    await Schedule.create(data)
-    res.json(204)
+    console.log('Schedule GET route was hit!')
+    const schedule = await Schedule.findOne(req.chipId)
+    res.json(schedule)
   } catch (err) {
     next(err)
   }
@@ -36,7 +36,7 @@ router.get('/schedule', async (req, res, next) => {
 router.post('/schedule', async (req, res, next) => {
   try {
     const data = req.body
-    console.log('Schedule route was hit!', data)
+    console.log('Schedule POST route was hit!', data)
     await Schedule.findOne(data)
     res.json(204)
   } catch (err) {
