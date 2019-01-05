@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Temperature, Config, Schedule } = require('../db/models')
+const { Temperature, Config, ThermostatSchedule} = require('../db/models')
 module.exports = router
 
 router.post('/temperature', async (req, res, next) => {
@@ -36,8 +36,9 @@ router.get('/schedule', async (req, res, next) => {
 router.post('/schedule', async (req, res, next) => {
   try {
     const data = req.body
+    console.log("req.body: ", req.body)
     console.log('Schedule POST route was hit!', data)
-    await Schedule.findOne(data)
+    await ThermostatSchedule.create(data)
     res.json(204)
   } catch (err) {
     next(err)

@@ -1,6 +1,7 @@
 const User = require('./user')
 const Temperature = require('./temperature')
 const ThermostatConfig = require('./thermostat-config')
+const ThermostatSchedule = require('./thermostatSchedule')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,5 +13,6 @@ const ThermostatConfig = require('./thermostat-config')
 module.exports = {
   User,
   Temperature,
-  ThermostatConfig
+  ThermostatConfig,
+  ThermostatSchedule
 }

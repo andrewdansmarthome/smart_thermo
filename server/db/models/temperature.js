@@ -19,7 +19,7 @@ const Temperature = db.define('temperature', {
   },
   locationId: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    defaultValue: 1
   }
 })
 
