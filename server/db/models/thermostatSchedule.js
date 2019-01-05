@@ -16,7 +16,7 @@ const ThermostatSchedule = db.define('thermostatSchedule', {
     },
     holiday: {
         type: Sequelize.INTEGER,
-        defaultValue: 1
+        defaultValue: 0
     },
     active: {
         type: Sequelize.INTEGER,
