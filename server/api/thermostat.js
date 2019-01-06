@@ -6,7 +6,7 @@ router.post('/temperature', async (req, res, next) => {
   try {
     const data = req.body
     console.log('Temp server was hit!', data)
-    await Temperature.create(data)
+    await Temperature.bulkCreate(data)
     res.json(204)
   } catch (err) {
     next(err)
@@ -38,7 +38,7 @@ router.post('/schedule', async (req, res, next) => {
     const data = req.body
     console.log("req.body: ", req.body)
     console.log('Schedule POST route was hit!', data)
-    await ThermostatSchedule.create(data)
+    await ThermostatSchedule.bulkCreate(data)
     res.json(204)
   } catch (err) {
     next(err)
