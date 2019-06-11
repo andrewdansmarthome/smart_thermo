@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Temperature = db.define('temperature', {
   temperature: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   serializedValue: {
@@ -15,11 +15,11 @@ const Temperature = db.define('temperature', {
     allowNull: false
   },
   targetTemperature: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   locationId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.STRING,
+    defaultValue: "1"
   }
 })
 
