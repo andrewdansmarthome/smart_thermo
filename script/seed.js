@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const { User, Temperature, ThermostatConfig } = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -36,7 +36,7 @@ async function seed() {
     })
   ]);
 
-  console.log(`seeded ${thermostatConfig.length} thermostatConfigs`)
+  console.log(`seeded ${thermoconfig.length} thermostatConfigs`)
 
   console.log(`seeded successfully`)
 }
