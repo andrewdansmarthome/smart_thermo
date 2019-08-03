@@ -45,13 +45,14 @@ const Graph = (props) => {
   //   convertedTime.setUTCSeconds(elem[0])
   //   return [convertedTime, ...elem.slice(1)]
   // })
+  console.log(props)
   return (
     <div className="google-chart">
       <Chart
         chartType="LineChart"
         // rows={rws}
-        // columns={[{ type: 'date', label: 'Time (1 hr intervals)' }, { type: 'number', label: 'Price($)' }]}
-        data={props.graphData}
+        // columns={[{ type: 'date', label: 'Time' }, { type: 'number', label: 'Temperature' }]}
+        data={props.graphData.map(data => [data.time, data.temperature])}
         options={options}
         graph_id={props.graphName}
         width="100%"
