@@ -2,6 +2,16 @@ const router = require('express').Router()
 const { Temperature, Config, ThermostatSchedule} = require('../db/models')
 module.exports = router
 
+router.get('/temperature', async (req, res, next) => {
+  try {
+    console.log('Get temp server was hit!')
+    const tempData = await Temperature.findAll();
+    res.json(tempData)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/temperature', async (req, res, next) => {
   try {
     const data = req.body
