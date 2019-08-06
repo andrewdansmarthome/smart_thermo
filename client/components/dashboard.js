@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Graph from './graph'
 import ControlPanel from './control-panel'
+import Scheduler from './scheduler'
 import Status from './status'
 import { getTemperatureThunk } from '../store/thermostat'
 
@@ -19,14 +20,15 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>
-          DASHBOARD
-        </h1>
-        <div>
-          <ControlPanel></ControlPanel>
-          <Status></Status>
+        <h1>Dashboard</h1>
+        <div className="top-content">
+          <ControlPanel />
+          <Scheduler />
+          <Status />
         </div>
-        <Graph graphData={this.props.tempData} graphName="Temperature" />
+        <div className="content-panel">
+          <Graph graphData={this.props.tempData} graphName="Temperature" />
+        </div>
       </div>
     )
   };

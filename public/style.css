@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: rgb(238, 238, 238)
 }
 
 a {
@@ -18,4 +19,49 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* =========== NAV BAR ============ */
+.nav-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#brand {
+  font-size: 2em;
+  font-weight: 200;
+}
+
+/* ======== DASHBOARD ============ */
+.top-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-header {
+  text-decoration: underline;
+  margin: 0;
+}
+
+.content-panel {
+  border: 1px solid rgb(230, 230, 230);
+  background-color: rgb(250, 250, 250);
+  margin: 5px;
+  padding: 10px;
+}
+
+.control-panel {
+  flex: 2;
+  min-width: 15em;
+}
+
+.scheduler {
+  flex: 3;
+  min-width: 45em;
+}
+
+.status {
+  max-width: 15em;
+  min-width: 15em;
 }
