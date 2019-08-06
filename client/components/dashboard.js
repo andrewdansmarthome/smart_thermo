@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Graph from './graph'
+import Temperature from './temperature'
 import ControlPanel from './control-panel'
 import Scheduler from './scheduler'
 import Status from './status'
@@ -11,12 +11,6 @@ import { getTemperatureThunk } from '../store/thermostat'
  * COMPONENT
  */
 class Dashboard extends Component {
-  async componentWillMount() {
-    if (!this.props.tempData || !this.props.tempData.length) {
-      await this.props.getTemperatureThunk();
-    }
-  }
-
   render() {
     return (
       <div>
@@ -26,9 +20,7 @@ class Dashboard extends Component {
           <Scheduler />
           <Status />
         </div>
-        <div className="content-panel">
-          <Graph graphData={this.props.tempData} graphName="Temperature" />
-        </div>
+        <Temperature graphData={this.props.tempData} graphName="Temperature" />
       </div>
     )
   };
@@ -38,15 +30,11 @@ class Dashboard extends Component {
  * CONTAINER
  */
 const mapStateToProps = (store) => {
-  return {
-    tempData: store.thermostat.tempData
-  };
+  return {};
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    getTemperatureThunk: () => dispatch(getTemperatureThunk())
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
