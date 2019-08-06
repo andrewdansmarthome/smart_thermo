@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Graph from './graph'
+import ControlPanel from './control-panel'
+import Status from './status'
 import { getTemperatureThunk } from '../store/thermostat'
 
 /**
@@ -20,6 +22,10 @@ class Dashboard extends Component {
         <h1>
           DASHBOARD
         </h1>
+        <div>
+          <ControlPanel></ControlPanel>
+          <Status></Status>
+        </div>
         <Graph graphData={this.props.tempData} graphName="Temperature" />
       </div>
     )
