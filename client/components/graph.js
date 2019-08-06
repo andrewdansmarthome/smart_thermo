@@ -2,6 +2,8 @@ import React from 'react'
 import { Chart } from 'react-google-charts'
 
 const Graph = (props) => {
+  // if no data, don't render graph
+  if (!props.graphData.length) return null;
   const options = ((graphName) => {
     switch (graphName) {
       case 'Temperature':
@@ -12,8 +14,6 @@ const Graph = (props) => {
             format: 'MMM d, y'
           },
           vAxis: { title: 'Temp (deg F)' },
-          // legend: 'none',
-          // pointSize: 1,
           explorer: {
             actions: ['dragToZoom', 'rightClickToReset', 'dragToPan'],
             keepInBounds: true,
@@ -28,8 +28,6 @@ const Graph = (props) => {
             format: 'MMM d, y'
           },
           vAxis: { title: 'Temp (deg F)' },
-          // legend: 'none',
-          // pointSize: 1,
           explorer: {
             actions: ['dragToZoom', 'rightClickToReset', 'dragToPan'],
             keepInBounds: true,
@@ -37,22 +35,16 @@ const Graph = (props) => {
           }
         }
     }
-  })(props.graphName)
+  })(props.graphName);
 
-  // const rws = props.chartData.map((elem, i) => {
-  //   if (i === 0) return elem
-  //   let convertedTime = new Date(0)
-  //   convertedTime.setUTCSeconds(elem[0])
-  //   return [convertedTime, ...elem.slice(1)]
-  // })
-  console.log(props)
   const data = props.graphData.sort((a, b) => a.time - b.time).map(temp => {
     return [new Date(temp.time * 1000), temp.temperature, temp.targetTemperature ];
   });
 
+  // add column headers
   data.unshift(['Time', 'Temperature', 'Target Temp']);
 
-  return data.length > 1 ? (
+  return (
     <div className="google-chart">
       <Chart
         chartType="LineChart"
@@ -63,7 +55,7 @@ const Graph = (props) => {
         height="600px"
       />
     </div>
-  ) : null;
+  );
 }
 
 export default Graph
