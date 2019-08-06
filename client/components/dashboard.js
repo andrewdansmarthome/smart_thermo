@@ -8,7 +8,7 @@ import { getTemperatureThunk } from '../store/thermostat'
  * COMPONENT
  */
 class Dashboard extends Component {
-  async componentDidMount() {
+  async componentWillMount() {
     if (!this.props.tempData || !this.props.tempData.length) {
       await this.props.getTemperatureThunk();
     }

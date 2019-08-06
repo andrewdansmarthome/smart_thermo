@@ -9,7 +9,7 @@ const Graph = (props) => {
           title: graphName,
           hAxis: {
             title: 'Time',
-            // format: 'MMM d, y'
+            format: 'MMM d, y'
           },
           vAxis: { title: 'Temp (deg F)' },
           // legend: 'none',
@@ -25,7 +25,7 @@ const Graph = (props) => {
           title: graphName,
           hAxis: {
             title: 'Time',
-            // format: 'MMM d, y'
+            format: 'MMM d, y'
           },
           vAxis: { title: 'Temp (deg F)' },
           // legend: 'none',
@@ -46,20 +46,24 @@ const Graph = (props) => {
   //   return [convertedTime, ...elem.slice(1)]
   // })
   console.log(props)
-  return (
+  const data = props.graphData.sort((a, b) => a.time - b.time).map(temp => {
+    return [new Date(temp.time * 1000), temp.temperature, temp.targetTemperature ];
+  });
+
+  data.unshift(['Time', 'Temperature', 'Target Temp']);
+
+  return data.length > 1 ? (
     <div className="google-chart">
       <Chart
         chartType="LineChart"
-        // rows={rws}
-        // columns={[{ type: 'date', label: 'Time' }, { type: 'number', label: 'Temperature' }]}
-        data={props.graphData.map(data => [data.time, data.temperature])}
+        data={data}
         options={options}
         graph_id={props.graphName}
         width="100%"
         height="600px"
       />
     </div>
-  )
+  ) : null;
 }
 
 export default Graph

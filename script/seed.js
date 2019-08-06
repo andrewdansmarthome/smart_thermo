@@ -15,12 +15,12 @@ async function seed() {
   console.log(`seeded ${users.length} users`)
 
   const tempList = [
-    { temperature: 68.5, serializedValue: 137, time: 1564798477, targetTemperature: 72, locationId: 1},
-    { temperature: 69, serializedValue: 138, time: 1564798577, targetTemperature: 72, locationId: 1},
-    { temperature: 70.5, serializedValue: 141, time: 1564798677, targetTemperature: 72, locationId: 1},
-    { temperature: 70, serializedValue: 140, time: 1564798777, targetTemperature: 72, locationId: 1},
-    { temperature: 71, serializedValue: 142, time: 1564798877, targetTemperature: 72, locationId: 1},
-    { temperature: 71.5, serializedValue: 143, time: 1564798977, targetTemperature: 72, locationId: 1}
+    { temperature: 68.5, serializedValue: 137, time: 1564798477, targetTemperature: 70, locationId: 1},
+    { temperature: 69, serializedValue: 138, time: 1564798577, targetTemperature: 70, locationId: 1},
+    { temperature: 70.5, serializedValue: 141, time: 1564798677, targetTemperature: 70, locationId: 1},
+    { temperature: 70, serializedValue: 140, time: 1564798777, targetTemperature: 70, locationId: 1},
+    { temperature: 71, serializedValue: 142, time: 1564798877, targetTemperature: 70, locationId: 1},
+    { temperature: 71.5, serializedValue: 143, time: 1564798977, targetTemperature: 70, locationId: 1}
   ]
   const temperatures = await Promise.all(tempList.map(temp => Temperature.create(temp)))
 

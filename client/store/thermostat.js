@@ -24,7 +24,7 @@ const getTemperatures = tempData => ({type: GET_TEMPERATURES, tempData})
 export const getTemperatureThunk = () => async dispatch => {
   try {
     const res = await axios.get('/api/thermostat/temperature')
-    dispatch(getTemperatures(res.data || defaultThermostat.tempData))
+    return dispatch(getTemperatures(res.data || defaultThermostat.tempData))
   } catch (err) {
     console.error(err)
   }
@@ -46,7 +46,7 @@ export const logout = () => async dispatch => {
 export default function(state = defaultThermostat, action) {
   switch (action.type) {
     case GET_TEMPERATURES:
-      return action.tempData
+      return {...state, tempData: action.tempData}
     default:
       return state
   }
