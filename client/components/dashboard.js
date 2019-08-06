@@ -20,7 +20,7 @@ class Dashboard extends Component {
           <Scheduler />
           <Status />
         </div>
-        <Temperature graphData={this.props.tempData} graphName="Temperature" />
+        <Temperature />
       </div>
     )
   };

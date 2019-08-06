@@ -21,16 +21,35 @@ form div {
   display: inline-block;
 }
 
+/* =========== GENERAL ============ */
+.inline-link {
+  margin-left: .25em;
+}
+
 /* =========== NAV BAR ============ */
 .nav-panel {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: rgb(250, 250, 250);
 }
 
 #brand {
   font-size: 2em;
   font-weight: 200;
+}
+
+/* =========== FOOTER ============ */
+.footer-panel {
+  background-color: rgb(250, 250, 250);
+  margin: 5px;
+  padding: 10px;
+}
+
+.footer-note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ======== DASHBOARD ============ */
