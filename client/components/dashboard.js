@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Temperature from './temperature'
 import ControlPanel from './control-panel'
 import Scheduler from './scheduler'
 import Status from './status'
-import { getTemperatureThunk } from '../store/thermostat'
 
 /**
  * COMPONENT

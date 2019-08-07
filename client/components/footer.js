@@ -1,8 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
 
 const Footer = () => (
   <div className="content-panel">
@@ -17,7 +13,7 @@ const Footer = () => (
         <div className="dev-info">
           <h4>Andrew Trahan</h4>
           <a href="https://github.com/globalart19">GitHub</a>
-          <a href="https://linkedin.com/andrewtrahan">LinkedIn</a>
+          <a href="https://linkedin.com/in/localandrewtrahan">LinkedIn</a>
         </div>
         <div className="dev-info">
           <h4>Dan Gutt</h4>
