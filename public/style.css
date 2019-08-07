@@ -38,11 +38,13 @@ form div {
 #brand {
   font-size: 2em;
   font-weight: 200;
+  margin-left: 5px;
 }
 
 .nav-left {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .nav-title {

@@ -8,7 +8,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <div className="nav-panel content-panel">
       <div className="nav-left">
-        <div id="brand">Smart Thermo</div>
+        <img id="brand" src="SmartThermo.png" width="300" height="36" />
         { isLoggedIn ? ( <h1 className="vert-pipe nav-title">Dashboard</h1> ) : null }
       </div>
       <nav>
