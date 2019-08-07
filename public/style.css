@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
-  background-color: rgb(238, 238, 238)
+  background-color: rgb(238, 238, 238);
+  min-width: calc(55em + 40px);
 }
 
 a {
@@ -37,6 +38,20 @@ form div {
 #brand {
   font-size: 2em;
   font-weight: 200;
+}
+
+.nav-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-title {
+  margin: 0 0 0 .5em;
+  padding-left: .5em;
+}
+
+.vert-pipe {
+  border-left: 1px solid rgb(230, 230, 230);
 }
 
 /* =========== FOOTER ============ */
@@ -77,7 +92,6 @@ form div {
 
 .scheduler {
   flex: 3;
-  min-width: 45em;
 }
 
 .status {

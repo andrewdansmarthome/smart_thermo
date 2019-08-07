@@ -6,8 +6,11 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <div className="nav-panel">
-      <div id="brand">Smart Thermo</div>
+    <div className="nav-panel content-panel">
+      <div className="nav-left">
+        <div id="brand">Smart Thermo</div>
+        { isLoggedIn ? ( <h1 className="vert-pipe nav-title">Dashboard</h1> ) : null }
+      </div>
       <nav>
         {isLoggedIn ? (
           <div>
@@ -23,7 +26,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         )}
       </nav>
     </div>
-    <hr />
   </div>
 )
 
