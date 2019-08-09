@@ -121,3 +121,37 @@ form div {
   max-width: 15em;
   min-width: 15em;
 }
+
+/* ======== CONTROL PANEL ========= */
+.toggle-control {
+
+}
+
+.toggle-slider:before {
+  border-radius: 50%;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(230, 230, 230);
+  border-radius: 50%;
+  transition: .4s;
+  -webkit-transition: .4s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  bottom: 5px;
+  left: 5px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 50%;
+  transition: .4s;
+  -webkit-transition: .4s;
+}
