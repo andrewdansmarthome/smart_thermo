@@ -124,7 +124,10 @@ form div {
 
 /* ======== CONTROL PANEL ========= */
 .toggle-control {
-
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 25px;
 }
 
 .toggle-slider:before {
@@ -138,7 +141,7 @@ form div {
   left: 0;
   right: 0;
   background-color: rgb(230, 230, 230);
-  border-radius: 50%;
+  border-radius: 25px;
   transition: .4s;
   -webkit-transition: .4s;
 }
