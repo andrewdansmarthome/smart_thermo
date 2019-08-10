@@ -23,6 +23,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={Dashboard} />
+            <Route component={Dashboard} />
           </Switch>
         )}
         <Route component={Login} />

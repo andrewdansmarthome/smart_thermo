@@ -28,6 +28,12 @@ form div {
   margin-left: .25em;
 }
 
+.input-label {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-right: .5em;
+}
+
 /* =========== NAV BAR ============ */
 .nav-panel {
   display: flex;
@@ -112,6 +118,23 @@ form div {
 .control-panel {
   flex: 2;
   min-width: 15em;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-panel:last-child {
+  margin-bottom: 0;
+}
+
+.control-panel-content {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.control-panel-content > div {
+  margin-right: 10px;
 }
 
 .scheduler {
@@ -123,17 +146,18 @@ form div {
   min-width: 15em;
 }
 
-/* ======== CONTROL PANEL ========= */
+/* ======== TOGGLE SWITCH ========= */
 .toggle-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  /* width: 7em; */
 }
 
-.toggle-wrapper p {
+.toggle-wrapper > span {
   font-size: 1.1em;
   font-weight: 600;
-  flex: 1;
+  margin: .5em;
 }
 
 .toggle-left {
