@@ -5,7 +5,7 @@ const ToggleSwitch = (props) => {
     <div className="toggle-wrapper">
       { props.left ? (<span className="toggle-left">{props.left}</span>) : null }
       <label className="toggle-control">
-        <input type="checkbox"></input>
+        <input type="checkbox" onClick={props.clickCallback}></input>
         <span className="toggle-slider"></span>
       </label>
       { props.right ? (<span className="toggle-right">{props.right}</span>) : null }
