@@ -221,3 +221,23 @@ input:checked + .toggle-slider:before {
   -ms-transform: translateX(20px);
   transform: translateX(20px);
 }
+
+/* ======== Buttons ========= */
+.button {
+    margin: 0 .25em;
+    padding: .25em .5em;
+    border-radius: 1.5em;
+    font-weight: 600;
+    color: #333;
+    height: 25px;
+}
+
+.primary {
+  background-color: rgb(210,210,210);
+  border: 1px solid rgb(150, 150, 150);
+}
+
+.secondary {
+  background-color: rgb(250,250,250);
+  border: 1px solid rgb(210, 210, 210);
+}

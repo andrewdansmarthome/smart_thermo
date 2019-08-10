@@ -10,10 +10,12 @@ const ControlPanel = (props) => {
           <ToggleSwitch right="Heat" />
           <ToggleSwitch right="Cool" />
       </div>
-      <div className="control-panel-content">
+      <form className="control-panel-content">
         <label className="input-label" labelfor="hold-input">Hold</label>
         <input id="hold-input" />
-      </div>
+        <button type="button" className="button secondary" onClick={(()=>{})()}>1 hr</button>
+        <button type="submit" className="button primary">Hold</button>
+      </form>
     </div>
   )
 }
