@@ -31,7 +31,17 @@ form div {
 .input-label {
   font-size: 1.1em;
   font-weight: 600;
-  margin-right: .5em;
+  margin-right: .25em;
+}
+
+input {
+  padding: .25em .75em;
+  margin: 0 .25em;
+  border-radius: 1.5em;
+  font-weight: 600;
+  color: #333;
+  background-color: rgb(250,250,250);
+  border: 1px solid rgb(210, 210, 210);
 }
 
 /* =========== NAV BAR ============ */
@@ -115,6 +125,20 @@ form div {
   padding: 10px;
 }
 
+.panel-note {
+  text-align: center;
+}
+
+.scheduler {
+  flex: 3;
+}
+
+.status {
+  max-width: 15em;
+  min-width: 15em;
+}
+
+/* ======== CONTROL PANEL ========= */
 .control-panel {
   flex: 2;
   min-width: 15em;
@@ -130,20 +154,12 @@ form div {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  align-items: center;
   margin-bottom: 10px;
 }
 
 .control-panel-content > div {
   margin-right: 10px;
-}
-
-.scheduler {
-  flex: 3;
-}
-
-.status {
-  max-width: 15em;
-  min-width: 15em;
 }
 
 /* ======== TOGGLE SWITCH ========= */
@@ -224,12 +240,12 @@ input:checked + .toggle-slider:before {
 
 /* ======== Buttons ========= */
 .button {
-    margin: 0 .25em;
-    padding: .25em .5em;
-    border-radius: 1.5em;
-    font-weight: 600;
-    color: #333;
-    height: 25px;
+  margin: 0 .25em;
+  padding: .25em .5em;
+  border-radius: 1.5em;
+  font-weight: 600;
+  color: #333;
+  height: 25px;
 }
 
 .primary {

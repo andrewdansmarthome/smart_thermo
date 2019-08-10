@@ -16,6 +16,7 @@ const ControlPanel = (props) => {
         <button type="button" className="button secondary" onClick={(()=>{})()}>1 hr</button>
         <button type="submit" className="button primary">Hold</button>
       </form>
+      <span className="panel-note">No hold currently active</span>
     </div>
   )
 }
