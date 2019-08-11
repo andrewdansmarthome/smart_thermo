@@ -19,7 +19,13 @@ const defaultThermostat = {
   heatOn: false,
   coolOn: false,
   holdOn: false,
-  holdTemp: 72
+  holdTemp: 72,
+  schedule: [],
+  addSchedule: {
+    date: null,
+    time: null,
+    temp: null
+  }
 };
 
 /**
