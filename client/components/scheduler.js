@@ -8,9 +8,11 @@ const Scheduler = (props) => {
       <h2 className="content-header">Scheduler</h2>
       <table className="schedule-table">
         <thead>
-          <th>Day</th>
-          <th>Time</th>
-          <th>Temp</th>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Temp</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
