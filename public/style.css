@@ -23,6 +23,19 @@ form div {
   display: inline-block;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+}
+
+table, th, td {
+  border: 1px solid rgb(210, 210, 210);
+  color: #333;
+}
+
 /* =========== GENERAL ============ */
 .inline-link {
   margin-left: .25em;

@@ -9,6 +9,7 @@ const SET_POWER = 'SET_POWER'
 const SET_HEAT = 'SET_HEAT'
 const SET_COOL = 'SET_COOL'
 const SET_HOLD = 'SET_HOLD'
+const SET_SCHEDULE = 'SET_SCHEDULE'
 
 /**
  * INITIAL STATE
@@ -21,7 +22,7 @@ const defaultThermostat = {
   holdOn: false,
   holdTemp: 72,
   schedule: [],
-  addSchedule: {
+  setScheduleData: {
     date: null,
     time: null,
     temp: null
@@ -36,6 +37,7 @@ const setPower = isOn => ({ type: SET_POWER, isOn })
 const setHeat = isOn => ({ type: SET_HEAT, isOn })
 const setCool = isOn => ({ type: SET_COOL, isOn })
 const setHold = (isOn, holdTemp) => ({type: SET_HOLD, isOn, holdTemp})
+const setSchedule = (schedule) => ({ type: SET_SCHEDULE, schedule})
 
 /**
  * THUNK CREATORS
@@ -89,6 +91,26 @@ export const setHoldThunk = () => async dispatch => {
   }
 }
 
+export const getScheduleThunk = () => async dispatch => {
+  console.log('set schedule')
+  try {
+    const res = await axios.get('/api/thermostat/schedule');
+    dispatch(setSchedule(res.data.schedule));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const setScheduleThunk = (schedule) => async dispatch => {
+  console.log('set schedule')
+  try {
+    const res = await axios.post('/api/thermostat/schedule', schedule);
+    dispatch(setSchedule(res.data.schedule));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 /**
  * REDUCER
  */
@@ -104,6 +126,8 @@ export default function(state = defaultThermostat, action) {
       return { ...state, coolOn: action.isOn };
     case SET_HOLD:
       return { ...state, holdOn: action.isOn, holdTemp: action.holdTemp };
+    case SET_SCHEDULE:
+      return { ...state, schedule: action.schedule };
     default:
       return state;
   }
