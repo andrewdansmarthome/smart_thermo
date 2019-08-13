@@ -21,7 +21,11 @@ const defaultThermostat = {
   coolOn: false,
   holdOn: false,
   holdTemp: 72,
-  schedule: [],
+  schedule: [{
+    day: 'Monday',
+    time: '1:23',
+    temp: 123
+  }],
   setScheduleData: {
     date: null,
     time: null,
