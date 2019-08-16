@@ -8,9 +8,14 @@ class Scheduler extends Component {
 
     this.state = {
       editRowIndex: null,
-      day: '',
-      time: null,
-      temp: null
+      editRow: {
+        day: '',
+        time: null,
+        temp: null
+      },
+      addDay: '',
+      addTime: null,
+      addTemp: null
     }
   }
 
@@ -29,8 +34,52 @@ class Scheduler extends Component {
     await this.props.getScheduleThunk();
   }
 
-  handleSelectDay = (value) => {
-    console.log('handleSelect Fire', value);
+  handleSelectDay = (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    this.setState({
+      ...this.state,
+      addDay: value
+    })
+  }
+
+  handleTimeChange = (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    // should add validations here
+    this.setState({
+      ...this.state,
+      addTime: value
+    })
+  }
+
+  handleTempChange = (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    // should add validations here
+    this.setState({
+      ...this.state,
+      addTemp: value
+    })
+  }
+
+  submitAddSchedule = (event) => {
+    event.preventDefault();
+    const newSchedule = {
+      day: this.state.addDay,
+      time: this.state.addTime,
+      temp: this.state.addTemp
+    };
+
+    this.props.setScheduleThunk(newSchedule);
+  }
+
+  editRow = (event) => {
+    event.preventDefault();
+    this.setState({
+      ...this.state,
+      editRowIndex: event.target.id.slice(-1)
+    });
   }
 
   render() {
@@ -49,25 +98,25 @@ class Scheduler extends Component {
           <tbody>
             <tr key="scheduler-add-row">
               <td>
-                <select name="schedulerDay">
+                <select name="schedulerDay" onChange={this.handleSelectDay}>
                   {this.days.map((option, index) => {
                     return (<option key={`day-add-option-${index}`}>{option}</option>);
                   })}
                 </select>
               </td>
               <td>
-                <input name="schedulerTime" />
+                <input name="schedulerTime" value={this.state.time} onChange={this.handleTimeChange} />
               </td>
               <td>
-                <input name="schedulerTemp" />
+                <input name="schedulerTemp" value={this.state.temp} onChange={this.handleTempChange} />
               </td>
               <td>
-                <button type='button' onClick={(()=>{})}>Add</button>
+                <button type='button' onClick={this.submitAddSchedule}>Add</button>
               </td>
             </tr>
             {
               this.props.schedule.map((scheduleInfo, index) => {
-                if (this.editRowIndex === index) {
+                if (this.state.editRowIndex === index) {
                   return (<tr key={`scheduler-edit-row-${index}`}>
                     <td key={`scheduler-edit-day-${index}`}>
                       <select name="editSchedulerDay" value={this.state.day} onChange={this.handleSelectDay}>
@@ -100,7 +149,7 @@ class Scheduler extends Component {
                     <td key={`scheduler-cell-time-${index}`}>{scheduleInfo.time}</td>
                     <td key={`scheduler-cell-temp-${index}`}>{scheduleInfo.temp}</td>
                     <td key={`scheduler-cell-action-${index}`}>
-                      <button type='button' onClick={(() => { })}>Edit</button>
+                      <button id={`edit-schedule-${index}`} type='button' onClick={this.editRow}>Edit</button>
                     </td>
                   </tr>
                 )
@@ -118,21 +167,14 @@ class Scheduler extends Component {
  */
 const mapStateToProps = (store) => {
   return {
-    schedule: store.thermostat.schedule,
-    setScheduleData: store.thermostat.setScheduleData
+    schedule: store.thermostat.schedule
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getScheduleThunk: () => dispatch(getScheduleThunk()),
-    setScheduleThunk: (evt) => {
-      evt.preventDefault();
-      const day = evt.target.day.value;
-      const time = evt.target.time.value;
-      const temp = evt.target.temp.value;
-      dispatch(setScheduleThunk({day, time, temp}));
-    }
+    setScheduleThunk: (newSchedule) => dispatch(setScheduleThunk(newSchedule))
   };
 }
 
