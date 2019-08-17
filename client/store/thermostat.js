@@ -98,8 +98,12 @@ export const setHoldThunk = () => async dispatch => {
 export const getScheduleThunk = () => async dispatch => {
   console.log('set schedule')
   try {
-    const res = await axios.get('/api/thermostat/schedule');
-    dispatch(setSchedule(res.data.schedule));
+    const res = await axios.get('/api/thermostat/schedule', {
+      params: {
+        locationId: 0
+      }
+    });
+    dispatch(setSchedule(res.data));
   } catch (err) {
     console.error(err);
   }

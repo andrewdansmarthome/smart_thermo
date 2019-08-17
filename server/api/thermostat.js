@@ -36,7 +36,12 @@ router.get('/config/:id', async (req, res, next) => {
 router.get('/schedule', async (req, res, next) => {
   try {
     console.log('Schedule GET route was hit!')
-    const schedule = await Schedule.findOne(req.chipId)
+    const schedule = await ThermostatSchedule.findAll({
+      where: {
+        locationId: req.query.locationId
+      }
+    });
+    console.log('schedule', req.query, schedule)
     res.json(schedule)
   } catch (err) {
     next(err)

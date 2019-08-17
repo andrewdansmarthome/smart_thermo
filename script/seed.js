@@ -41,37 +41,37 @@ async function seed() {
   const thermostatSchedule = await Promise.all([
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 80,
+      temp: 80,
       time: '8:00',
       day: 'Monday'
     }),
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 72,
+      temp: 72,
       time: '17:30',
       day: 'Monday'
     }),
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 80,
+      temp: 80,
       time: '8:00',
       day: 'Tuesday'
     }),
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 72,
+      temp: 72,
       time: '17:30',
       day: 'Tuesday'
     }),
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 76,
+      temp: 76,
       time: '8:00',
       day: 'Wednesday'
     }),
     ThermostatSchedule.create({
       locationId: 0,
-      targetTemperature: 72,
+      temp: 72,
       time: '17:30',
       day: 'Wednesday'
     })

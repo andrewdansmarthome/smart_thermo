@@ -6,7 +6,7 @@ const ThermostatSchedule = db.define('thermostatSchedule', {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    targetTemperature: {
+    temp: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
