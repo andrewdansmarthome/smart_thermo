@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getScheduleThunk, setScheduleThunk } from '../store';
+import ScheduleFormRow from './schedule-form-row';
 
 class Scheduler extends Component {
   constructor(props) {
@@ -34,34 +35,7 @@ class Scheduler extends Component {
     await this.props.getScheduleThunk();
   }
 
-  handleSelectDay = (event) => {
-    event.preventDefault();
-    const value = event.target.value;
-    this.setState({
-      ...this.state,
-      addDay: value
-    })
-  }
 
-  handleTimeChange = (event) => {
-    event.preventDefault();
-    const value = event.target.value;
-    // should add validations here
-    this.setState({
-      ...this.state,
-      addTime: value
-    })
-  }
-
-  handleTempChange = (event) => {
-    event.preventDefault();
-    const value = event.target.value;
-    // should add validations here
-    this.setState({
-      ...this.state,
-      addTemp: value
-    })
-  }
 
   submitAddSchedule = (event) => {
     event.preventDefault();
@@ -117,31 +91,7 @@ class Scheduler extends Component {
             {
               this.props.schedule.map((scheduleInfo, index) => {
                 if (this.state.editRowIndex === index) {
-                  return (<tr key={`scheduler-edit-row-${index}`}>
-                    <td key={`scheduler-edit-day-${index}`}>
-                      <select name="editSchedulerDay" value={this.state.day} onChange={this.handleSelectDay}>
-                        {days.map((option, index) => {
-                          return (
-                            <option
-                              key={`day-edit-option-${index}`}
-                              value={option === 'Select Date' ? '' : option}
-                            >
-                              {option}
-                            </option>);
-                        })}
-                      </select>
-                    </td>
-                    <td key={`scheduler-edit-time-${index}`}>
-                      <input name="editSchedulerTime" />
-                    </td>
-                    <td key={`scheduler-edit-temp-${index}`}>
-                      <input name="editSchedulerTemp" />
-                    </td>
-                    <td key={`scheduler-edit-action-${index}`}>
-                      <button type='button' onClick={(() => { })}>Update</button>
-                      <button type='button' onClick={(() => { })}>Cancel</button>
-                    </td>
-                  </tr>)
+                  return ( <ScheduleFormRow index={index} schedule={this.state.schedule}  /> );
                 }
                 return (
                   <tr key={`scheduler-row-${index}`}>
