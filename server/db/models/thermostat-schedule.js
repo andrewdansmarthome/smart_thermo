@@ -11,7 +11,7 @@ const ThermostatSchedule = db.define('thermostatSchedule', {
         allowNull: false
     },
     time: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     day: {

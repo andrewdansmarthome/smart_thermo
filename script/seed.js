@@ -48,7 +48,7 @@ async function seed() {
     ThermostatSchedule.create({
       locationId: 0,
       targetTemperature: 72,
-      time: '5:30',
+      time: '17:30',
       day: 'Monday'
     }),
     ThermostatSchedule.create({
@@ -60,7 +60,7 @@ async function seed() {
     ThermostatSchedule.create({
       locationId: 0,
       targetTemperature: 72,
-      time: '5:30',
+      time: '17:30',
       day: 'Tuesday'
     }),
     ThermostatSchedule.create({
@@ -72,7 +72,7 @@ async function seed() {
     ThermostatSchedule.create({
       locationId: 0,
       targetTemperature: 72,
-      time: '5:30',
+      time: '17:30',
       day: 'Wednesday'
     })
   ])
