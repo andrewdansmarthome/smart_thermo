@@ -1,7 +1,7 @@
 const User = require('./user')
 const Temperature = require('./temperature')
 const ThermostatConfig = require('./thermostat-config')
-const ThermostatSchedule = require('./thermostatSchedule')
+const ThermostatSchedule = require('./thermostat-schedule')
 
 module.exports = {
   User,

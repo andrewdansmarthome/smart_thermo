@@ -7,10 +7,10 @@ const ControlPanel = (props) => {
   return (
     <div className="control-panel content-panel">
       <h2 className="content-header">Control Panel</h2>
-      <div className="control-panel-content">
-        <ToggleSwitch right="Power" clickCallback={props.togglePowerThunk} />
-        <ToggleSwitch right="Heat" clickCallback={props.toggleHeatPowerThunk} />
-        <ToggleSwitch right="Cool" clickCallback={props.toggleCoolPowerThunk} />
+      <div className="control-panel-content control-panel-toggles">
+        <ToggleSwitch title="Power" labelLoc="top" clickCallback={props.togglePowerThunk} />
+        <ToggleSwitch title="Heat" labelLoc="top" clickCallback={props.toggleHeatPowerThunk} />
+        <ToggleSwitch title="Cool" labelLoc="top" clickCallback={props.toggleCoolPowerThunk} />
       </div>
       <form className="control-panel-content" onSubmit={props.setHoldThunk}>
         <label className="input-label" labelfor="hold-input">Hold</label>

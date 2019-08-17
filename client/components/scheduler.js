@@ -11,51 +11,40 @@ class Scheduler extends Component {
       editRowIndex: null,
       editRow: {
         day: '',
-        time: null,
-        temp: null
-      },
-      addDay: '',
-      addTime: null,
-      addTemp: null
+        time: '',
+        temp: ''
+      }
     }
   }
 
   async componentWillMount() {
-    this.days = [
-      'Select Date',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ];
-
     await this.props.getScheduleThunk();
   }
 
-
-
-  submitAddSchedule = (event) => {
+  handleSubmitRow = (event, schedule, type) => {
     event.preventDefault();
-    const newSchedule = {
-      day: this.state.addDay,
-      time: this.state.addTime,
-      temp: this.state.addTemp
-    };
-
-    this.props.setScheduleThunk(newSchedule);
-  }
-
-  handleSubmitRow = (event, schedule) => {
-    this.props.setScheduleThunk(schedule);
+    this.props.setScheduleThunk(schedule, type);
   }
 
   editRow = (event) => {
     event.preventDefault();
+    const index = +event.target.id.slice(-1);
     this.setState({
-      editRowIndex: +event.target.id.slice(-1)
+      editRowIndex: index,
+      editRow: {
+        ...this.props.schedule[index]
+      }
+    });
+  }
+
+  handleClearRow = () => {
+    this.setState({
+      editRowIndex: null,
+      editRow: {
+        day: '',
+        time: '',
+        temp: ''
+      }
     });
   }
 
@@ -73,35 +62,34 @@ class Scheduler extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr key="scheduler-add-row">
-              <td>
-                <select name="schedulerDay" onChange={this.handleSelectDay}>
-                  {this.days.map((option, index) => {
-                    return (<option key={`day-add-option-${index}`}>{option}</option>);
-                  })}
-                </select>
-              </td>
-              <td>
-                <input name="schedulerTime" value={this.state.time} onChange={this.handleTimeChange} />
-              </td>
-              <td>
-                <input name="schedulerTemp" value={this.state.temp} onChange={this.handleTempChange} />
-              </td>
-              <td>
-                <button type='button' onClick={this.submitAddSchedule}>Add</button>
-              </td>
-            </tr>
+            <ScheduleFormRow
+              key="add-row-key"
+              type="add"
+              submitButtonName="Add"
+              clearButtonName="Clear"
+              handleSubmitRow={this.handleSubmitRow}
+              handleClearRow={this.handleClearRow}
+            />
             {
               this.props.schedule.map((scheduleInfo, index) => {
                 return this.state.editRowIndex === index ? (
-                  <ScheduleFormRow type="edit" index={index} schedule={this.state.schedule} submitButtonName="Update" handleSubmitRow={this.handleSubmitRow} />
+                  <ScheduleFormRow
+                    key={`scheduler-edit-row-${index}`}
+                    type="edit"
+                    index={index}
+                    schedule={this.state.editRow}
+                    submitButtonName="Update"
+                    clearButtonName="Cancel"
+                    handleSubmitRow={this.handleSubmitRow}
+                    handleClearRow={this.handleClearRow}
+                  />
                 ) : (
                   <tr key={`scheduler-row-${index}`}>
                     <td key={`scheduler-cell-day-${index}`}>{scheduleInfo.day}</td>
                     <td key={`scheduler-cell-time-${index}`}>{scheduleInfo.time}</td>
                     <td key={`scheduler-cell-temp-${index}`}>{scheduleInfo.temp}</td>
                     <td key={`scheduler-cell-action-${index}`}>
-                      <button id={`edit-schedule-${index}`} type='button' onClick={this.editRow}>Edit</button>
+                        <button id={`edit-schedule-${index}`} type='button' className="button secondary" onClick={this.editRow}>Edit</button>
                     </td>
                   </tr>
                 );

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getScheduleThunk, setScheduleThunk } from '../store';
 
 class ScheduleFormRow extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = props.schedule ? {
+      id: props.schedule.id || null,
       day: props.schedule.day || '',
-      time: props.schedule.day || null,
-      temp: props.schedule.day || null
+      time: props.schedule.time || '',
+      temp: props.schedule.temp || ''
+    } : {
+      id: null,
+      day: '',
+      time: '',
+      temp: ''
     }
   }
 
@@ -27,48 +31,54 @@ class ScheduleFormRow extends Component {
   }
 
   handleSelectDay = (event) => {
-    event.preventDefault();
     const value = event.target.value;
     this.setState({
-      ...this.state,
       day: value
-    })
+    });
   }
 
   handleTimeChange = (event) => {
-    event.preventDefault();
     const value = event.target.value;
     // should add validations here
     this.setState({
-      ...this.state,
       time: value
-    })
+    });
   }
 
   handleTempChange = (event) => {
-    event.preventDefault();
     const value = event.target.value;
     // should add validations here
     this.setState({
-      ...this.state,
       temp: value
-    })
+    });
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.props.handleSubmitRow(event, this.state)
+    this.props.handleSubmitRow(event, this.state, this.props.type);
+  }
+
+  handleClearRow = () => {
+    this.setState({
+      day: '',
+      time: '',
+      temp: ''
+    });
+
+    this.props.handleClearRow();
   }
 
   render() {
-    const { props, days } = this;
+    const { props, days, state } = this;
+    const { day, time, temp } = state
+    const idx = props.index || props.type;
     return (
-      <tr key={`scheduler-${props.type}-row-${props.index}`}>
-        <td key={`scheduler-${props.type}-day-${props.index}`}>
-          <select name="editSchedulerDay" value={this.state.day} onChange={this.handleSelectDay}>
+      <tr className="scheduler-form-row" key={`scheduler-${props.type}-row-${idx}`}>
+        <td key={`scheduler-${props.type}-day-${idx}`}>
+          <select name="editSchedulerDay" value={day} onChange={this.handleSelectDay}>
             {days.map((option, index) => {
-              const key = `day-${props.type}-option-${props.index}-${index}`;
+              const key = `day-${props.type}-option-${idx}-${index}`;
               return (
                 <option
                   key={key}
@@ -80,35 +90,19 @@ class ScheduleFormRow extends Component {
             })}
           </select>
         </td>
-        <td key={`scheduler-${props.type}-time-${props.index}`}>
-          <input name="editSchedulerTime" />
+        <td key={`scheduler-${props.type}-time-${idx}`}>
+          <input name="editSchedulerTime" type="text" value={time} onChange={this.handleTimeChange} ref="time" />
         </td>
-        <td key={`scheduler-${props.type}-temp-${props.index}`}>
-          <input name="editSchedulerTemp" />
+        <td key={`scheduler-${props.type}-temp-${idx}`}>
+          <input name="editSchedulerTemp" type="text" value={temp} onChange={this.handleTempChange} ref="temp" />
         </td>
-        <td key={`scheduler-${props.type}-action-${props.index}`}>
-          <button type='button' onClick={this.handleSubmit}>{props.submitButtonName}</button>
-          <button type='button' onClick={props.cancelRow}>Cancel</button>
+        <td key={`scheduler-${props.type}-action-${idx}`}>
+          <button type='submit' className="button primary" onClick={this.handleSubmit}>{props.submitButtonName}</button>
+          <button type='button' className="button secondary" onClick={this.handleClearRow}>{props.clearButtonName}</button>
         </td>
       </tr>
     );
   }
 }
 
-/**
- * CONTAINER
- */
-const mapStateToProps = (store) => {
-  return {
-    schedule: store.thermostat.schedule
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getScheduleThunk: () => dispatch(getScheduleThunk()),
-    setScheduleThunk: (newSchedule) => dispatch(setScheduleThunk(newSchedule))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleFormRow);
+export default ScheduleFormRow;

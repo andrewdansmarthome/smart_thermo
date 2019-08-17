@@ -1,14 +1,15 @@
 import React from 'react';
 
 const ToggleSwitch = (props) => {
+  let cls = `toggle-wrapper toggle-${props.labelLoc}`;
+
   return (
-    <div className="toggle-wrapper">
-      { props.left ? (<span className="toggle-left">{props.left}</span>) : null }
+    <div className={cls}>
+      <span>{props.title}</span>
       <label className="toggle-control">
         <input type="checkbox" onClick={props.clickCallback}></input>
         <span className="toggle-slider"></span>
       </label>
-      { props.right ? (<span className="toggle-right">{props.right}</span>) : null }
     </div>
   )
 };
