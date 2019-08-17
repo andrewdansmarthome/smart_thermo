@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Temperature, ThermostatConfig } = require('../server/db/models')
+const { User, Temperature, ThermostatConfig, ThermostatSchedule } = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -37,6 +37,47 @@ async function seed() {
   ]);
 
   console.log(`seeded ${thermoconfig.length} thermostatConfigs`)
+
+  const thermostatSchedule = await Promise.all([
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 80,
+      time: '8:00',
+      day: 'Monday'
+    }),
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 72,
+      time: '5:30',
+      day: 'Monday'
+    }),
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 80,
+      time: '8:00',
+      day: 'Tuesday'
+    }),
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 72,
+      time: '5:30',
+      day: 'Tuesday'
+    }),
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 76,
+      time: '8:00',
+      day: 'Wednesday'
+    }),
+    ThermostatSchedule.create({
+      locationId: 0,
+      targetTemperature: 72,
+      time: '5:30',
+      day: 'Wednesday'
+    })
+  ])
+
+  console.log(`seeded ${thermostatSchedule.length} thermostatConfigs`)
 
   console.log(`seeded successfully`)
 }

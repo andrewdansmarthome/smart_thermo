@@ -2,6 +2,10 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const ThermostatSchedule = db.define('thermostatSchedule', {
+    locationId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
     targetTemperature: {
         type: Sequelize.INTEGER,
         allowNull: false
