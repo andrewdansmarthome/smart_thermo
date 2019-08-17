@@ -52,7 +52,11 @@ router.post('/schedule', async (req, res, next) => {
   try {
     const data = req.body;
     console.log('Schedule POST route was hit!', data);
-    await ThermostatSchedule.bulkCreate(data);
+    if (data.type === 'add') {
+      await ThermostatSchedule.create(data.schedule);
+    } else if (data.type === 'update') {
+      await ThermostatSchedule.find(data.schedule.id).update(data.schedule);
+    }
     res.json(204);
   } catch (err) {
     next(err);

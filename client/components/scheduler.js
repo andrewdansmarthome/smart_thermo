@@ -116,7 +116,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getScheduleThunk: () => dispatch(getScheduleThunk()),
-    setScheduleThunk: (newSchedule) => dispatch(setScheduleThunk(newSchedule))
+    setScheduleThunk: (newSchedule, type) => dispatch(setScheduleThunk(newSchedule, type))
   };
 }
 

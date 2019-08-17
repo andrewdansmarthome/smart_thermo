@@ -4,12 +4,13 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_TEMPERATURES = 'GET_TEMPERATURES'
-const SET_POWER = 'SET_POWER'
-const SET_HEAT = 'SET_HEAT'
-const SET_COOL = 'SET_COOL'
-const SET_HOLD = 'SET_HOLD'
-const SET_SCHEDULE = 'SET_SCHEDULE'
+const GET_TEMPERATURES = 'GET_TEMPERATURES';
+const SET_POWER = 'SET_POWER';
+const SET_HEAT = 'SET_HEAT';
+const SET_COOL = 'SET_COOL';
+const SET_HOLD = 'SET_HOLD';
+const SET_SCHEDULE = 'SET_SCHEDULE';
+const ADD_TO_SCHEDULE = 'ADD_TO_SCHEDULE';
 
 /**
  * INITIAL STATE
@@ -27,6 +28,7 @@ const defaultThermostat = {
     temp: 123
   }],
   setScheduleData: {
+    locationId: 0,
     date: null,
     time: null,
     temp: null
@@ -36,12 +38,13 @@ const defaultThermostat = {
 /**
  * ACTION CREATORS
  */
-const getTemperatures = tempData => ({ type: GET_TEMPERATURES, tempData })
-const setPower = isOn => ({ type: SET_POWER, isOn })
-const setHeat = isOn => ({ type: SET_HEAT, isOn })
-const setCool = isOn => ({ type: SET_COOL, isOn })
-const setHold = (holdTemp, timeRemaining) => ({type: SET_HOLD, holdTemp, timeRemaining})
-const setSchedule = (schedule) => ({ type: SET_SCHEDULE, schedule})
+const getTemperatures = tempData => ({ type: GET_TEMPERATURES, tempData });
+const setPower = isOn => ({ type: SET_POWER, isOn });
+const setHeat = isOn => ({ type: SET_HEAT, isOn });
+const setCool = isOn => ({ type: SET_COOL, isOn });
+const setHold = (holdTemp, timeRemaining) => ({type: SET_HOLD, holdTemp, timeRemaining});
+const setSchedule = (schedule) => ({ type: SET_SCHEDULE, schedule });
+const addToSchedule = (schedule) => ({ type: ADD_TO_SCHEDULE, schedule});
 
 /**
  * THUNK CREATORS
@@ -109,11 +112,13 @@ export const getScheduleThunk = () => async dispatch => {
   }
 }
 
-export const setScheduleThunk = (schedule) => async dispatch => {
+export const setScheduleThunk = (schedule, type) => async dispatch => {
   console.log('set schedule')
   try {
-    const res = await axios.post('/api/thermostat/schedule', schedule);
-    dispatch(setSchedule(res.data.schedule));
+    const res = await axios.post('/api/thermostat/schedule', { schedule, type });
+    type === 'add' ?
+      dispatch(addToSchedule(res.data.schedule)) :
+      null// dispatch(updateSchedule(res.data.schedule));
   } catch (err) {
     console.error(err);
   }
@@ -134,6 +139,9 @@ export default function(state = defaultThermostat, action) {
       return { ...state, coolOn: action.isOn };
     case SET_HOLD:
       return { ...state, holdTemp: action.holdTemp, holdTimeRemaining: action.timeRemaining };
+    case ADD_TO_SCHEDULE:
+      const newSchedule = [...state.schedule, schedule];
+      return { ...state, schedule: newSchedule };
     case SET_SCHEDULE:
       return { ...state, schedule: action.schedule };
     default:
