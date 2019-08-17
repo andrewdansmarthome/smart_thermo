@@ -48,11 +48,14 @@ class Scheduler extends Component {
     this.props.setScheduleThunk(newSchedule);
   }
 
+  handleSubmitRow = (event, schedule) => {
+    this.props.setScheduleThunk(schedule);
+  }
+
   editRow = (event) => {
     event.preventDefault();
     this.setState({
-      ...this.state,
-      editRowIndex: event.target.id.slice(-1)
+      editRowIndex: +event.target.id.slice(-1)
     });
   }
 
@@ -90,10 +93,9 @@ class Scheduler extends Component {
             </tr>
             {
               this.props.schedule.map((scheduleInfo, index) => {
-                if (this.state.editRowIndex === index) {
-                  return ( <ScheduleFormRow index={index} schedule={this.state.schedule}  /> );
-                }
-                return (
+                return this.state.editRowIndex === index ? (
+                  <ScheduleFormRow type="edit" index={index} schedule={this.state.schedule} submitButtonName="Update" handleSubmitRow={this.handleSubmitRow} />
+                ) : (
                   <tr key={`scheduler-row-${index}`}>
                     <td key={`scheduler-cell-day-${index}`}>{scheduleInfo.day}</td>
                     <td key={`scheduler-cell-time-${index}`}>{scheduleInfo.time}</td>
@@ -102,7 +104,7 @@ class Scheduler extends Component {
                       <button id={`edit-schedule-${index}`} type='button' onClick={this.editRow}>Edit</button>
                     </td>
                   </tr>
-                )
+                );
               })
             }
           </tbody>

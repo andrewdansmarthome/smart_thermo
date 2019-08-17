@@ -7,9 +7,9 @@ class ScheduleFormRow extends Component {
     super(props);
 
     this.state = {
-      day: '',
-      time: null,
-      temp: null
+      day: props.schedule.day || '',
+      time: props.schedule.day || null,
+      temp: props.schedule.day || null
     }
   }
 
@@ -55,19 +55,28 @@ class ScheduleFormRow extends Component {
     })
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    this.props.handleSubmitRow(event, this.state)
+  }
+
   render() {
+    const { props, days } = this;
     return (
       <tr key={`scheduler-${props.type}-row-${props.index}`}>
         <td key={`scheduler-${props.type}-day-${props.index}`}>
           <select name="editSchedulerDay" value={this.state.day} onChange={this.handleSelectDay}>
             {days.map((option, index) => {
+              const key = `day-${props.type}-option-${props.index}-${index}`;
               return (
                 <option
-                  key={`day-${props.type}-option-${index}`}
+                  key={key}
                   value={option === 'Select Date' ? '' : option}
                 >
                   {option}
-                </option>);
+                </option>
+              );
             })}
           </select>
         </td>
@@ -78,8 +87,8 @@ class ScheduleFormRow extends Component {
           <input name="editSchedulerTemp" />
         </td>
         <td key={`scheduler-${props.type}-action-${props.index}`}>
-          <button type='button' onClick={(() => { })}>Update</button>
-          <button type='button' onClick={(() => { })}>Cancel</button>
+          <button type='button' onClick={this.handleSubmit}>{props.submitButtonName}</button>
+          <button type='button' onClick={props.cancelRow}>Cancel</button>
         </td>
       </tr>
     );
