@@ -35,27 +35,26 @@ router.get('/config/:id', async (req, res, next) => {
 
 router.get('/schedule', async (req, res, next) => {
   try {
-    console.log('Schedule GET route was hit!')
+    console.log('Schedule GET route was hit!');
     const schedule = await ThermostatSchedule.findAll({
       where: {
         locationId: req.query.locationId
       }
     });
-    console.log('schedule', req.query, schedule)
-    res.json(schedule)
+    console.log('schedule', req.query, schedule);
+    res.json(schedule);
   } catch (err) {
-    next(err)
+    next(err);
   }
 })
 
 router.post('/schedule', async (req, res, next) => {
   try {
-    const data = req.body
-    console.log("req.body: ", req.body)
-    console.log('Schedule POST route was hit!', data)
-    await ThermostatSchedule.bulkCreate(data)
-    res.json(204)
+    const data = req.body;
+    console.log('Schedule POST route was hit!', data);
+    await ThermostatSchedule.bulkCreate(data);
+    res.json(204);
   } catch (err) {
-    next(err)
+    next(err);
   }
 })
