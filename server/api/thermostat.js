@@ -52,12 +52,13 @@ router.post('/schedule', async (req, res, next) => {
   try {
     const data = req.body;
     console.log('Schedule POST route was hit!', data);
+    let schedule = {};
     if (data.type === 'add') {
-      await ThermostatSchedule.create(data.schedule);
+      schedule = await ThermostatSchedule.create(data.schedule);
     } else if (data.type === 'update') {
-      await ThermostatSchedule.find(data.schedule.id).update(data.schedule);
+      schedule = await ThermostatSchedule.find(data.schedule.id).update(data.schedule);
     }
-    res.json(204);
+    res.json(schedule);
   } catch (err) {
     next(err);
   }

@@ -114,11 +114,14 @@ export const getScheduleThunk = () => async dispatch => {
 
 export const setScheduleThunk = (schedule, type) => async dispatch => {
   console.log('set schedule')
+  schedule.locationId = 0;
   try {
     const res = await axios.post('/api/thermostat/schedule', { schedule, type });
-    type === 'add' ?
-      dispatch(addToSchedule(res.data.schedule)) :
-      null// dispatch(updateSchedule(res.data.schedule));
+    if (res.status === 200) {
+      type === 'add' ?
+        dispatch(addToSchedule(res.data)) :
+        null// dispatch(updateSchedule(res.data.schedule));
+    }
   } catch (err) {
     console.error(err);
   }
@@ -140,7 +143,7 @@ export default function(state = defaultThermostat, action) {
     case SET_HOLD:
       return { ...state, holdTemp: action.holdTemp, holdTimeRemaining: action.timeRemaining };
     case ADD_TO_SCHEDULE:
-      const newSchedule = [...state.schedule, schedule];
+      const newSchedule = [...state.schedule, action.schedule];
       return { ...state, schedule: newSchedule };
     case SET_SCHEDULE:
       return { ...state, schedule: action.schedule };
