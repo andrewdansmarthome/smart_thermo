@@ -80,7 +80,7 @@ class Scheduler extends Component {
                       index={index}
                       schedule={this.state.editRow}
                       submitButtonName="Update"
-                      clearButtonName="Cancel"
+                      clearButtonName="X"
                       handleSubmitRow={this.handleSubmitRow}
                       handleClearRow={this.handleClearRow}
                     />

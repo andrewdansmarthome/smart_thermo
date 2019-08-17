@@ -144,11 +144,12 @@ input {
 
 .scheduler {
   flex: 3;
+  min-width: 25em;
 }
 
 .status {
   max-width: 15em;
-  min-width: 15em;
+  min-width: 10em;
 }
 
 /* ======== CONTROL PANEL ========= */
@@ -304,6 +305,9 @@ input:checked + .toggle-slider:before {
 .schedule-table {
   max-height: 10em;
   overflow-y: auto;
+  border-top: 1px solid rgb(210, 210, 210);
+  border-bottom: 1px solid rgb(210, 210, 210);
+  box-shadow: inset 0 0 0 1px rgb(210, 210, 210);
 }
 
 /* ======== Scheduler Form ========= */
