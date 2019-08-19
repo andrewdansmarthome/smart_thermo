@@ -138,10 +138,6 @@ input {
   padding: 10px;
 }
 
-.panel-note {
-  text-align: center;
-}
-
 .scheduler {
   flex: 3;
   min-width: 25em;
@@ -158,6 +154,14 @@ input {
   min-width: 15em;
   display: flex;
   flex-direction: column;
+}
+
+.control-panel-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
 }
 
 .control-panel:last-child {
@@ -182,6 +186,11 @@ input {
 
 .control-panel-content input {
   width: 3em;
+}
+
+.panel-note {
+  text-align: center;
+  margin-top: .5em;
 }
 
 /* ======== TOGGLE SWITCH ========= */
