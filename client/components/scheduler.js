@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getScheduleThunk, setScheduleThunk } from '../store';
+import { getScheduleThunk, addScheduleThunk, updateScheduleThunk, deleteScheduleThunk } from '../store';
 import ScheduleFormRow from './schedule-form-row';
 
 class Scheduler extends Component {
@@ -21,9 +21,19 @@ class Scheduler extends Component {
     await this.props.getScheduleThunk();
   }
 
-  handleSubmitRow = (event, schedule, type) => {
+  handleAddSubmit = (event, schedule) => {
     event.preventDefault();
-    this.props.setScheduleThunk(schedule, type);
+    this.props.addScheduleThunk(schedule);
+  }
+
+  handleUpdateSubmit = (event, schedule) => {
+    event.preventDefault();
+    this.props.updateScheduleThunk(schedule);
+  }
+
+  handleDeleteSubmit = (event, schedule) => {
+    event.preventDefault();
+    this.props.deleteScheduleThunk(schedule.id);
   }
 
   editRow = (event) => {
@@ -68,7 +78,7 @@ class Scheduler extends Component {
                 type="add"
                 submitButtonName="Add"
                 clearButtonName="Clear"
-                handleSubmitRow={this.handleSubmitRow}
+                handleSubmitRow={this.handleAddSubmit}
                 handleClearRow={this.handleClearRow}
               />
               {
@@ -81,7 +91,8 @@ class Scheduler extends Component {
                       schedule={this.state.editRow}
                       submitButtonName="Update"
                       clearButtonName="X"
-                      handleSubmitRow={this.handleSubmitRow}
+                      handleSubmitRow={this.handleUpdateSubmit}
+                      handleDeleteRow={this.handleDeleteSubmit}
                       handleClearRow={this.handleClearRow}
                     />
                   ) : (
@@ -116,7 +127,9 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getScheduleThunk: () => dispatch(getScheduleThunk()),
-    setScheduleThunk: (newSchedule, type) => dispatch(setScheduleThunk(newSchedule, type))
+    addScheduleThunk: (newSchedule) => dispatch(addScheduleThunk(newSchedule)),
+    updateScheduleThunk: (updatedSchedule) => dispatch(updateScheduleThunk(updatedSchedule)),
+    deleteScheduleThunk: (scheduleId) => dispatch(deleteScheduleThunk(scheduleId))
   };
 }
 

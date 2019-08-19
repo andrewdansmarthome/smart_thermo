@@ -11,6 +11,8 @@ const SET_COOL = 'SET_COOL';
 const SET_HOLD = 'SET_HOLD';
 const SET_SCHEDULE = 'SET_SCHEDULE';
 const ADD_TO_SCHEDULE = 'ADD_TO_SCHEDULE';
+const UPDATE_SCHEDULE = 'UPDATE_SCHEDULE';
+const DELETE_SCHEDULE = 'DELETE_SCHEDULE';
 
 /**
  * INITIAL STATE
@@ -44,7 +46,9 @@ const setHeat = isOn => ({ type: SET_HEAT, isOn });
 const setCool = isOn => ({ type: SET_COOL, isOn });
 const setHold = (holdTemp, timeRemaining) => ({type: SET_HOLD, holdTemp, timeRemaining});
 const setSchedule = (schedule) => ({ type: SET_SCHEDULE, schedule });
-const addToSchedule = (schedule) => ({ type: ADD_TO_SCHEDULE, schedule});
+const addToSchedule = (schedule) => ({ type: ADD_TO_SCHEDULE, schedule });
+const updateSchedule = (schedule) => ({ type: UPDATE_SCHEDULE, schedule });
+const deleteSchedule = (schedule) => ({ type: DELETE_SCHEDULE, scheduleId });
 
 /**
  * THUNK CREATORS
@@ -112,15 +116,38 @@ export const getScheduleThunk = () => async dispatch => {
   }
 }
 
-export const setScheduleThunk = (schedule, type) => async dispatch => {
+export const addScheduleThunk = (schedule) => async dispatch => {
   console.log('set schedule')
   schedule.locationId = 0;
   try {
-    const res = await axios.post('/api/thermostat/schedule', { schedule, type });
+    const res = await axios.post('/api/thermostat/schedule', { schedule });
     if (res.status === 200) {
-      type === 'add' ?
-        dispatch(addToSchedule(res.data)) :
-        null// dispatch(updateSchedule(res.data.schedule));
+      dispatch(addToSchedule(res.data));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const updateScheduleThunk = (schedule) => async dispatch => {
+  console.log('update schedule')
+  schedule.locationId = 0;
+  try {
+    const res = await axios.put('/api/thermostat/schedule', { schedule });
+    if (res.status === 200) {
+      dispatch(updateSchedule(res.data));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const deleteScheduleThunk = (scheduleId) => async dispatch => {
+  console.log('delete schedule')
+  try {
+    const res = await axios.post('/api/thermostat/schedule', { scheduleId });
+    if (res.status === 200) {
+      dispatch(deleteSchedule(scheduleId));
     }
   } catch (err) {
     console.error(err);
@@ -142,11 +169,14 @@ export default function(state = defaultThermostat, action) {
       return { ...state, coolOn: action.isOn };
     case SET_HOLD:
       return { ...state, holdTemp: action.holdTemp, holdTimeRemaining: action.timeRemaining };
-    case ADD_TO_SCHEDULE:
-      const newSchedule = [...state.schedule, action.schedule];
-      return { ...state, schedule: newSchedule };
     case SET_SCHEDULE:
-      return { ...state, schedule: action.schedule };
+      return { ...state, schedule: action.schedule }
+    case ADD_TO_SCHEDULE:
+      return { ...state, schedule: [...state.schedule, action.schedule] };
+    case UPDATE_SCHEDULE:
+      return { ...state, schedule: state.schedule.map(sched => sched.id === action.schedule.id ? action.schedule : sched) };
+    case DELETE_SCHEDULE:
+      return { ...state, schedule: state.schedule.filter(sched => sched.id !== action.scheduleId) };
     default:
       return state;
   }
