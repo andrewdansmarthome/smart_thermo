@@ -1,6 +1,5 @@
 import axios from 'axios'
-import history from '../history'
-
+import scheduleSort from '../utils/scheduleSort';
 /**
  * ACTION TYPES
  */
@@ -48,7 +47,7 @@ const setHold = (holdTemp, timeRemaining) => ({type: SET_HOLD, holdTemp, timeRem
 const setSchedule = (schedule) => ({ type: SET_SCHEDULE, schedule });
 const addToSchedule = (schedule) => ({ type: ADD_TO_SCHEDULE, schedule });
 const updateSchedule = (schedule) => ({ type: UPDATE_SCHEDULE, schedule });
-const deleteSchedule = (schedule) => ({ type: DELETE_SCHEDULE, scheduleId });
+const deleteSchedule = (scheduleId) => ({ type: DELETE_SCHEDULE, scheduleId });
 
 /**
  * THUNK CREATORS
@@ -63,7 +62,6 @@ export const getTemperatureThunk = () => async dispatch => {
 }
 
 export const togglePowerThunk = () => async dispatch => {
-  console.log('togglePower')
   try {
     const res = await axios.post('/api/thermostat/togglepower');
     dispatch(setPower(res.data.isOn || false));
@@ -73,7 +71,6 @@ export const togglePowerThunk = () => async dispatch => {
 }
 
 export const toggleHeatPowerThunk = () => async dispatch => {
-  console.log('toggle heat')
   try {
     const res = await axios.post('/api/thermostat/toggleheat');
     dispatch(setHeat(res.data.isOn || false));
@@ -83,7 +80,6 @@ export const toggleHeatPowerThunk = () => async dispatch => {
 }
 
 export const toggleCoolPowerThunk = () => async dispatch => {
-  console.log('toggle cool')
   try {
     const res = await axios.post('/api/thermostat/togglecool');
     dispatch(setCool(res.data.isOn || false));
@@ -93,7 +89,6 @@ export const toggleCoolPowerThunk = () => async dispatch => {
 }
 
 export const setHoldThunk = () => async dispatch => {
-  console.log('setHold')
   try {
     const res = await axios.post('/api/thermostat/sethold');
     dispatch(setHold(res.data.holdTemp, res.data.timeRemaining));
@@ -103,21 +98,20 @@ export const setHoldThunk = () => async dispatch => {
 }
 
 export const getScheduleThunk = () => async dispatch => {
-  console.log('set schedule')
   try {
     const res = await axios.get('/api/thermostat/schedule', {
       params: {
         locationId: 0
       }
     });
-    dispatch(setSchedule(res.data));
+    const sortedSchedule = scheduleSort(res.data);
+    dispatch(setSchedule(sortedSchedule));
   } catch (err) {
     console.error(err);
   }
 }
 
 export const addScheduleThunk = (schedule) => async dispatch => {
-  console.log('set schedule')
   schedule.locationId = 0;
   try {
     const res = await axios.post('/api/thermostat/schedule', { schedule });
@@ -130,7 +124,6 @@ export const addScheduleThunk = (schedule) => async dispatch => {
 }
 
 export const updateScheduleThunk = (schedule) => async dispatch => {
-  console.log('update schedule')
   schedule.locationId = 0;
   try {
     const res = await axios.put('/api/thermostat/schedule', { schedule });
@@ -143,9 +136,8 @@ export const updateScheduleThunk = (schedule) => async dispatch => {
 }
 
 export const deleteScheduleThunk = (scheduleId) => async dispatch => {
-  console.log('delete schedule')
   try {
-    const res = await axios.post('/api/thermostat/schedule', { scheduleId });
+    const res = await axios.delete('/api/thermostat/schedule', { data: { scheduleId }   });
     if (res.status === 200) {
       dispatch(deleteSchedule(scheduleId));
     }
@@ -172,9 +164,9 @@ export default function(state = defaultThermostat, action) {
     case SET_SCHEDULE:
       return { ...state, schedule: action.schedule }
     case ADD_TO_SCHEDULE:
-      return { ...state, schedule: [...state.schedule, action.schedule] };
+      return { ...state, schedule: scheduleSort([...state.schedule, action.schedule]) };
     case UPDATE_SCHEDULE:
-      return { ...state, schedule: state.schedule.map(sched => sched.id === action.schedule.id ? action.schedule : sched) };
+      return { ...state, schedule: scheduleSort(state.schedule.map(sched => sched.id === action.schedule.id ? action.schedule : sched)) };
     case DELETE_SCHEDULE:
       return { ...state, schedule: state.schedule.filter(sched => sched.id !== action.scheduleId) };
     default:

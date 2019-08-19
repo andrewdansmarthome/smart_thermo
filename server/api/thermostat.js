@@ -15,7 +15,7 @@ router.get('/temperature', async (req, res, next) => {
 router.post('/temperature', async (req, res, next) => {
   try {
     const data = req.body
-    console.log('Temp server was hit!', data)
+    console.log('Temp server was hit!')
     await Temperature.bulkCreate(data)
     res.json(204)
   } catch (err) {
@@ -41,7 +41,6 @@ router.get('/schedule', async (req, res, next) => {
         locationId: req.query.locationId
       }
     });
-    console.log('schedule', req.query, schedule);
     res.json(schedule);
   } catch (err) {
     next(err);
@@ -77,7 +76,7 @@ router.delete('/schedule', async (req, res, next) => {
   try {
     const data = req.body;
     console.log('Schedule PUT route was hit!');
-    const schedule = await ThermostatSchedule.findById(data.scheduleId)
+    const schedule = await ThermostatSchedule.findById(data.scheduleId);
 
     await schedule.destroy();
 

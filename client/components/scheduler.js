@@ -29,11 +29,16 @@ class Scheduler extends Component {
   handleUpdateSubmit = (event, schedule) => {
     event.preventDefault();
     this.props.updateScheduleThunk(schedule);
+    this.setState({
+      editRowIndex: null
+    });
   }
 
-  handleDeleteSubmit = (event, schedule) => {
+  handleDeleteSubmit = (event) => {
     event.preventDefault();
-    this.props.deleteScheduleThunk(schedule.id);
+    const index = +event.target.id.slice(-1);
+    const scheduleId = this.props.schedule[index].id;
+    this.props.deleteScheduleThunk(scheduleId);
   }
 
   editRow = (event) => {
@@ -102,6 +107,7 @@ class Scheduler extends Component {
                       <td key={`scheduler-cell-temp-${index}`}>{scheduleInfo.temp}</td>
                       <td key={`scheduler-cell-action-${index}`}>
                           <button id={`edit-schedule-${index}`} type='button' className="button secondary" onClick={this.editRow}>Edit</button>
+                          <button id={`edit-schedule-${index}`} type='button' className="button btn-red" onClick={this.handleDeleteSubmit}>Del</button>
                       </td>
                     </tr>
                   );

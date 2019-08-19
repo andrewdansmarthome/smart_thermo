@@ -57,6 +57,7 @@ class ScheduleFormRow extends Component {
     event.preventDefault();
 
     this.props.handleSubmitRow(event, this.state, this.props.type);
+    this.props.type === 'add' && this.handleClearRow();
   }
 
   handleClearRow = () => {

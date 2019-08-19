@@ -301,6 +301,12 @@ input:checked + .toggle-slider:before {
   border: 1px solid rgb(210, 210, 210);
 }
 
+.btn-red {
+  border: 1px solid rgb(210, 210, 210);
+  background-color: rgb(112, 0, 0);
+  color: white;
+}
+
 /* ======== Scheduler ========= */
 .schedule-table {
   max-height: 10em;
